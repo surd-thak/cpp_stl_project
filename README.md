@@ -1,102 +1,123 @@
-c++_stl_project: Custom C++ Container Library
+# **c++_stl_project: Custom C++ Container Library**
 
-This is a lightweight implementation of standard STL-style containers and algorithms. I built this project to demonstrate a deeper understanding of C++ memory management, template metaprogramming, and data structure internals.
+This is a lightweight implementation of STL-style containers and algorithms.  
+I built this project to demonstrate a deeper understanding of **C++ memory management, template metaprogramming, and data structure internals**.
 
-It's not meant to replace the standard library, but rather to show how std::vector and std::map work under the hood using modern C++17 standards.
+It’s **not** meant to replace the standard library — only to show how containers like `std::vector` and `std::map` work under the hood using modern **C++17**.
 
-Key Features
+---
 
-1. Custom Vector (MyVector)
+# **Key Features**
 
-A dynamic array implementation that handles memory manually.
+## **1. Custom Vector (`MyVector`)**
+A dynamic array implementation that manually manages memory.
 
-RAII Compliant: Implements the "Rule of 5" (Copy Constructor, Move Constructor, Copy Assignment, Move Assignment, Destructor) to prevent memory leaks.
+- **RAII Compliant:** Implements the *Rule of 5* (copy/move constructors & assignment, destructor)
+- **Move Semantics:** Efficient transfer of ownership without expensive deep copies
+- **Iterators:** Custom **Random Access Iterator** compatible with range-based loops and algorithms
 
-Move Semantics: Efficiently transfers ownership of resources without expensive deep copies.
+---
 
-Iterators: Includes a custom Random Access Iterator, making it compatible with range-based for loops and standard algorithms.
+## **2. Custom Map (`MyMap`)**
+An associative container built on a self-balancing **AVL Tree**.
 
-2. Custom Map (MyMap)
+- **Backend:** AVL ensures operations remain **O(log n)** even in worst cases  
+- **API:** Supports `operator[]`, `insert`, `contains`, and more  
+- **Memory Safety:** Deep copies of nodes & recursive cleanup
 
-An associative container powered by a self-balancing Binary Search Tree.
+---
 
-Backend: Uses an AVL Tree implementation to ensure operations remain $O(\log n)$ even in worst-case scenarios.
+## **3. Generic Algorithms**
+Templated algorithms designed to work with custom iterators.
 
-API: Supports standard map operations like operator[], insert, and contains.
+- **QuickSort:** In-place `MySTL::sort` with minimal memory overhead  
+- **Find:** Linear search `MySTL::find` compatible with any iterator-based container  
 
-Memory Safety: Handles deep copying of tree nodes and recursive cleanup.
+---
 
-3. Generic Algorithms
+# **Project Structure**
 
-Templated algorithms that work with custom iterators.
-
-QuickSort: An in-place implementation of QuickSort (MySTL::sort) to minimize memory overhead.
-
-Find: A linear search (MySTL::find) for generic containers.
-
-Project Structure
-
+```
 c++_stl_project/
 ├── CMakeLists.txt          # Main build configuration
 ├── src/
-│   └── main.cpp            # Driver code / Demo
+│   └── main.cpp            # Demo / driver code
 ├── include/
 │   ├── MyVector.h          # Vector implementation
 │   ├── MyMap.h             # Map wrapper
 │   ├── MyAVLTree.h         # AVL Tree logic
-│   └── MyAlgorithms.h      # Sort & Find functions
+│   └── MyAlgorithms.h      # Sort & Find algorithms
 └── tests/
     ├── CMakeLists.txt      # Test config
     ├── test_vector.cpp     # Vector unit tests
     └── test_map.cpp        # Map/AVL unit tests
+```
 
+---
 
-How to Build and Run
+# **How to Build and Run**
 
-I used CMake for the build system to make it cross-platform.
+This project uses **CMake** for cross-platform builds.
 
-Prerequisites
+## **Prerequisites**
+- C++17 compatible compiler (GCC, Clang, MSVC)
+- CMake 3.14+
 
-C++17 compatible compiler (GCC, Clang, or MSVC)
+---
 
-CMake (3.14+)
+## **Build Instructions**
 
-Building the Project
+### **1. Clone / download the repo**
 
-Clone or download the repo.
-
-Create a build directory:
-
+### **2. Create a build directory**
+```bash
 mkdir build
 cd build
+```
 
-
-Configure and compile:
-
+### **3. Configure and compile**
+```bash
 cmake ..
 make
+```
 
-
-Run the demo:
-
+### **4. Run the demo**
+```bash
 ./c++_stl_project_app
+```
 
+---
 
-Running Unit Tests
+# **Running Unit Tests**
 
-The project uses Google Test (GTest) for validation. CMake will automatically fetch GTest from GitHub when you configure the project, so you don't need to install it manually.
+Uses **Google Test (GTest)**.  
+CMake automatically downloads GTest during configuration — nothing to install manually.
 
-After building (steps above), run:
+After building:
 
-# Run the test binary directly (recommended for colored output)
+### **Run tests directly (recommended)**
+```bash
 ./tests/unit_tests
+```
 
-# OR use CTest
+### **OR use CTest**
+```bash
 ctest
+```
 
+---
 
-Design Decisions
+# **Design Decisions**
 
-Why QuickSort? I chose QuickSort for the generic sort algorithm because it's an in-place sort. Unlike Merge Sort, it doesn't require allocating a temporary array, which is better for memory-constrained environments.
+### **Why QuickSort?**
+QuickSort is **in-place**, unlike Merge Sort (which requires extra arrays).  
+Ideal for memory-constrained environments.
 
-Why AVL Tree? While Red-Black trees are common in the actual STL, AVL trees are more strictly balanced. This makes lookups slightly faster at the cost of slower insertions, which seemed like a good trade-off for this simpler implementation.
+### **Why AVL Tree?**
+STL uses Red-Black Trees, but **AVL trees are more strictly balanced**, giving slightly faster lookups at the cost of slower inserts.  
+A good trade-off for learning purposes.
+
+---
+
+# **License**
+Free to use for educational purposes.
