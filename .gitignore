@@ -1,0 +1,19 @@
+Ignore the build directory (binaries and temporary files)
+
+build/
+cmake-build-debug/
+
+Ignore Mac system files
+
+.DS_Store
+
+Ignore VS Code local settings
+
+.vscode/
+
+Ignore compiled executables 
+
+*.exe
+*.o
+*.a
+*.dylib
